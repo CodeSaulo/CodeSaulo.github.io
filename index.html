@@ -1,14 +1,686 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scode page</title>
+    <title>CV - Saúl Juárez Gutiérrez</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .cv-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-50px) translateY(-50px); }
+        }
+        
+        .profile-section {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .name {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .title {
+            font-size: 1.3em;
+            font-weight: 300;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+        }
+        
+        .sidebar {
+            background: #f8f9fa;
+            padding: 40px 30px;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            border-radius: 2px;
+        }
+        
+        .skill-item {
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .skill-bar {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 4px;
+            transition: width 1.5s ease-in-out;
+            animation: skillLoad 2s ease-in-out;
+        }
+        
+        @keyframes skillLoad {
+            from { width: 0; }
+        }
+        
+        .experience-item, .education-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+        }
+        
+        .experience-item:hover, .education-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+        }
+        
+        .job-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .company {
+            font-weight: 600;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .description ul {
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+        
+        .description li {
+            margin-bottom: 5px;
+        }
+        
+        .certifications {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .cert-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .cert-item:hover {
+            border-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+        }
+        
+        .cert-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .cert-org {
+            color: #3498db;
+            font-size: 0.9em;
+        }
+        
+        .languages {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .lang-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .lang-level {
+            background: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tool-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .tool-item:hover {
+            border-color: #3498db;
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .name {
+                font-size: 2em;
+            }
+            
+            .sidebar, .content {
+                padding: 20px;
+            }
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #3498db;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Este es un sitio web hecho con Github Pages</h1>
-    <p>Y fue creado con amor para el curso de Github de Platzi</p>
-    <p><img src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" alt="programando"></p>
+    <div class="cv-container">
+        <header class="header">
+            <div class="profile-section">
+                <h1 class="name">Saúl Juárez Gutiérrez</h1>
+                <p class="title">Ingeniero en Sistemas Computacionales | Tester Senior & Seguridad</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <span>sjuarez2290@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <span>5613654697</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📍</span>
+                        <span>Santa Úrsula Coapa, CDMX</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>💼</span>
+                        <span>linkedin.com/in/scoderox</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <section class="section">
+                    <h2 class="section-title">Habilidades Técnicas</h2>
+                    <div class="skill-item">
+                        <div class="skill-name">Testing de Seguridad</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">IBM AppScan</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Fortify SCA</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">OWASP TOP 10</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Python/Java/SQL</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Testing Funcional</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Herramientas</h2>
+                    <div class="tools-grid">
+                        <div class="tool-item">IBM AppScan</div>
+                        <div class="tool-item">Fortify SCA</div>
+                        <div class="tool-item">BurpSuite</div>
+                        <div class="tool-item">OWASP ZAP</div>
+                        <div class="tool-item">Postman</div>
+                        <div class="tool-item">SoapUI</div>
+                        <div class="tool-item">Katalon Studio</div>
+                        <div class="tool-item">SQLMap</div>
+                        <div class="tool-item">Acunetix</div>
+                        <div class="tool-item">Vega</div>
+                        <div class="tool-item">Python</div>
+                        <div class="tool-item">Java</div>
+                        <div class="tool-item">SQL Server</div>
+                        <div class="tool-item">MySQL</div>
+                        <div class="tool-item">PostgreSQL</div>
+                        <div class="tool-item">Linux</div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Certificaciones</h2>
+                    <div class="certifications">
+                        <div class="cert-item">
+                            <div class="cert-name">IBM AppScan Certified</div>
+                            <div class="cert-org">IBM (2018)</div>
+                        </div>
+                        <div class="cert-item">
+                            <div class="cert-name">OWASP TOP TEN 2017</div>
+                            <div class="cert-org">SCITUM (2018)</div>
+                        </div>
+                        <div class="cert-item">
+                            <div class="cert-name">Fortify OWASP Mobile</div>
+                            <div class="cert-org">Micro Focus (2019)</div>
+                        </div>
+                        <div class="cert-item">
+                            <div class="cert-name">Katalon Studio Certified</div>
+                            <div class="cert-org">Katalon</div>
+                        </div>
+                        <div class="cert-item">
+                            <div class="cert-name">PCI DSS 2025</div>
+                            <div class="cert-org">Security Standards</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Idiomas</h2>
+                    <div class="languages">
+                        <div class="lang-item">
+                            <span class="lang-name">Español</span>
+                            <span class="lang-level">Nativo</span>
+                        </div>
+                        <div class="lang-item">
+                            <span class="lang-name">Inglés</span>
+                            <span class="lang-level">Intermedio</span>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+
+            <main class="content">
+                <section class="section">
+                    <div class="highlight">
+                        <h3 style="color: #27ae60; margin-bottom: 10px;">🎯 Perfil Profesional</h3>
+                        <p>Ingeniero en Sistemas Computacionales con más de 7 años de experiencia especializada en testing de software y seguridad informática. Experto en pruebas de seguridad estáticas y dinámicas con herramientas IBM AppScan y Fortify, siguiendo metodologías OWASP. Experiencia comprobada en proyectos de alto impacto como SAT y cámaras de compensación, con enfoque en calidad del software y análisis de vulnerabilidades.</p>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">7+</div>
+                            <div class="stat-label">Años de Experiencia</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Proyectos Completados</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Cobertura de Seguridad</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Certificaciones</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Experiencia Profesional</h2>
+                    
+                    <div class="experience-item">
+                        <div class="job-title">Ingeniero de Pruebas • Tester SR</div>
+                        <div class="company">Eglobal</div>
+                        <div class="date">Agosto 2021 - Julio 2025</div>
+                        <div class="description">
+                            <p>Liderazgo en testing de seguridad y funcional para aplicaciones críticas gubernamentales y financieras.</p>
+                            <ul>
+                                <li>Diseño y ejecución de planes de prueba y casos de prueba para sistemas de alto impacto como SAT</li>
+                                <li>Implementación de pruebas de seguridad estáticas y dinámicas con IBM AppScan y Fortify SCA</li>
+                                <li>Análisis de vulnerabilidades siguiendo metodologías OWASP TOP 10, reduciendo riesgos críticos en 85%</li>
+                                <li>Colaboración estrecha con equipos de desarrollo para asegurar calidad y cumplimiento de requerimientos</li>
+                                <li>Participación activa en ceremonias ágiles y planificación de sprints</li>
+                                <li>Validación de entregables cumpliendo estándares de funcionalidad y seguridad técnica</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="job-title">Ingeniero de Pruebas • Tester de Seguridad</div>
+                        <div class="company">Planet Media</div>
+                        <div class="date">Abril 2018 - Julio 2021</div>
+                        <div class="description">
+                            <p>Especialización en testing de seguridad para aplicaciones web y móviles con enfoque en vulnerabilidades.</p>
+                            <ul>
+                                <li>Ejecución de pruebas de penetración usando BurpSuite, OWASP ZAP y herramientas especializadas</li>
+                                <li>Análisis estático de código con Fortify SCA identificando vulnerabilidades críticas</li>
+                                <li>Implementación de pruebas automatizadas con Katalon Studio mejorando eficiencia en 40%</li>
+                                <li>Documentación detallada de vulnerabilidades y recomendaciones de remediación</li>
+                                <li>Testing de APIs con Postman y SoapUI asegurando integridad de servicios</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="job-title">Analista de Soporte Técnico</div>
+                        <div class="company">EDX Solutions</div>
+                        <div class="date">Septiembre 2017 - Febrero 2018</div>
+                        <div class="description">
+                            <p>Inicio de carrera profesional enfocado en soporte técnico y resolución de incidencias.</p>
+                            <ul>
+                                <li>Resolución de incidencias técnicas y soporte a usuarios finales</li>
+                                <li>Análisis de logs y diagnóstico de problemas en sistemas Linux y Windows</li>
+                                <li>Documentación de procedimientos y creación de bases de conocimiento</li>
+                                <li>Colaboración con equipos de desarrollo para escalamiento de issues críticos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Educación</h2>
+                    
+                    <div class="education-item">
+                        <div class="job-title">Ingeniería en Sistemas Computacionales</div>
+                        <div class="company">Universidad UCUGS</div>
+                        <div class="date">Ciudad de México</div>
+                        <div class="description">
+                            <p>Formación integral en desarrollo de software, sistemas computacionales y seguridad informática con enfoque en metodologías de testing y aseguramiento de calidad.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Competencias Clave</h2>
+                    <div class="highlight">
+                        <ul style="margin-left: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;">
+                            <li><strong>Análisis y resolución de problemas</strong> - Enfoque metodológico</li>
+                            <li><strong>Trabajo en equipo</strong> - Colaboración efectiva</li>
+                            <li><strong>Pensamiento analítico</strong> - Atención al detalle</li>
+                            <li><strong>Adaptabilidad</strong> - Aprendizaje continuo</li>
+                            <li><strong>Comunicación técnica</strong> - Equipos multidisciplinarios</li>
+                            <li><strong>Gestión de proyectos</strong> - Testing y calidad</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Logros Destacados</h2>
+                    <div class="highlight">
+                        <ul style="margin-left: 20px;">
+                            <li><strong>Especialista en Seguridad</strong> - 7+ años enfocado en testing de seguridad con herramientas enterprise</li>
+                            <li><strong>Proyectos de Alto Impacto</strong> - SAT, cámaras de compensación y sistemas gubernamentales</li>
+                            <li><strong>Reducción de Vulnerabilidades</strong> - 85% de reducción en riesgos críticos mediante análisis OWASP</li>
+                            <li><strong>Certificaciones Múltiples</strong> - IBM AppScan, OWASP, Fortify, PCI DSS 2025</li>
+                            <li><strong>Expertise en Herramientas</strong> - Dominio avanzado de IBM AppScan, Fortify SCA, BurpSuite</li>
+                            <li><strong>Metodologías Ágiles</strong> - Integración efectiva en equipos Scrum y DevSecOps</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Tecnologías y Sistemas</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #e74c3c;">
+                            <h4 style="color: #e74c3c; margin-bottom: 10px;">🔒 Seguridad</h4>
+                            <p style="font-size: 0.9em;">IBM AppScan, Fortify SCA, BurpSuite, OWASP ZAP, Vega, SQLMap, Acunetix</p>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12;">
+                            <h4 style="color: #f39c12; margin-bottom: 10px;">💻 Programación</h4>
+                            <p style="font-size: 0.9em;">Python, Java, JavaScript, SQL (MySQL, PostgreSQL, Oracle, Informix)</p>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #27ae60;">
+                            <h4 style="color: #27ae60; margin-bottom: 10px;">🖥️ Sistemas</h4>
+                            <p style="font-size: 0.9em;">Linux (Ubuntu, CentOS, Kali, Parrot), Windows Server, múltiples distribuciones</p>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #9b59b6;">
+                            <h4 style="color: #9b59b6; margin-bottom: 10px;">🧪 Testing</h4>
+                            <p style="font-size: 0.9em;">Katalon Studio, Postman, SoapUI, pruebas funcionales y de regresión</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Animaciones y efectos interactivos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación de barras de habilidades
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'skillLoad 2s ease-in-out forwards';
+                    }
+                });
+            });
+
+            skillBars.forEach(bar => observer.observe(bar));
+
+            // Efectos hover adicionales
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+
+            // Contador animado para estadísticas
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const text = stat.textContent;
+                if (text.includes('+') || text.includes('%')) {
+                    stat.style.background = 'linear-gradient(45deg, #3498db, #2980b9)';
+                    stat.style.webkitBackgroundClip = 'text';
+                    stat.style.webkitTextFillColor = 'transparent';
+                }
+            });
+
+            // Efecto de typing para el nombre (opcional)
+            const nameElement = document.querySelector('.name');
+            if (nameElement) {
+                nameElement.style.animation = 'slideIn 1s ease-out';
+            }
+        });
+    </script>
 </body>
 </html>
